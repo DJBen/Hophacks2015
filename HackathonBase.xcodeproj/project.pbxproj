@@ -7,21 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9902F1C0ECD9AC2FA28DBB89 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A49C6183159FDB827D8742D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F419BDDB1BA27B73009A0652 /* EncryptionCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDDA1BA27B73009A0652 /* EncryptionCore.swift */; settings = {ASSET_TAGS = (); }; };
 		F4DE11301BA2635600E64ABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE112F1BA2635600E64ABF /* AppDelegate.swift */; };
-		F4DE11321BA2635600E64ABF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE11311BA2635600E64ABF /* ViewController.swift */; };
+		F4DE11321BA2635600E64ABF /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE11311BA2635600E64ABF /* IntroViewController.swift */; };
 		F4DE11351BA2635600E64ABF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE11331BA2635600E64ABF /* Main.storyboard */; };
 		F4DE11371BA2635600E64ABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4DE11361BA2635600E64ABF /* Assets.xcassets */; };
 		F4DE113A1BA2635600E64ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE11381BA2635600E64ABF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1325A1087E982E335809673F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		1A49C6183159FDB827D8742D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		69534EE179585C656013944F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F419BDDA1BA27B73009A0652 /* EncryptionCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptionCore.swift; sourceTree = "<group>"; };
 		F4DE112C1BA2635600E64ABF /* HackathonBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackathonBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE112F1BA2635600E64ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F4DE11311BA2635600E64ABF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F4DE11311BA2635600E64ABF /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		F4DE11341BA2635600E64ABF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4DE11361BA2635600E64ABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4DE11391BA2635600E64ABF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4DE113B1BA2635600E64ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4DE11411BA26A7000E64ABF /* HackathonBase-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HackathonBase-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +36,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9902F1C0ECD9AC2FA28DBB89 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0CFD3A7354AE40F4BF378F27 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1A49C6183159FDB827D8742D /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC11D3FE1371122CEAE59038 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				69534EE179585C656013944F /* Pods.debug.xcconfig */,
+				1325A1087E982E335809673F /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F4DE11231BA2635600E64ABF = {
 			isa = PBXGroup;
 			children = (
 				F4DE112E1BA2635600E64ABF /* HackathonBase */,
 				F4DE112D1BA2635600E64ABF /* Products */,
+				CC11D3FE1371122CEAE59038 /* Pods */,
+				0CFD3A7354AE40F4BF378F27 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,11 +82,13 @@
 			isa = PBXGroup;
 			children = (
 				F4DE112F1BA2635600E64ABF /* AppDelegate.swift */,
-				F4DE11311BA2635600E64ABF /* ViewController.swift */,
+				F4DE11311BA2635600E64ABF /* IntroViewController.swift */,
+				F419BDDA1BA27B73009A0652 /* EncryptionCore.swift */,
 				F4DE11331BA2635600E64ABF /* Main.storyboard */,
 				F4DE11361BA2635600E64ABF /* Assets.xcassets */,
 				F4DE11381BA2635600E64ABF /* LaunchScreen.storyboard */,
 				F4DE113B1BA2635600E64ABF /* Info.plist */,
+				F4DE11411BA26A7000E64ABF /* HackathonBase-Bridging-Header.h */,
 			);
 			path = HackathonBase;
 			sourceTree = "<group>";
@@ -71,9 +100,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4DE113E1BA2635600E64ABF /* Build configuration list for PBXNativeTarget "HackathonBase" */;
 			buildPhases = (
+				38BE77D76B3DD0C9DE8B7816 /* Check Pods Manifest.lock */,
 				F4DE11281BA2635600E64ABF /* Sources */,
 				F4DE11291BA2635600E64ABF /* Frameworks */,
 				F4DE112A1BA2635600E64ABF /* Resources */,
+				6A26B15D8F806B313C3232A7 /* Copy Pods Resources */,
+				6827E02D4BBB097B15F0AC8C /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -90,6 +122,7 @@
 		F4DE11241BA2635600E64ABF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Sihao Lu";
 				TargetAttributes = {
@@ -129,12 +162,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		38BE77D76B3DD0C9DE8B7816 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6827E02D4BBB097B15F0AC8C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A26B15D8F806B313C3232A7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F4DE11281BA2635600E64ABF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4DE11321BA2635600E64ABF /* ViewController.swift in Sources */,
+				F419BDDB1BA27B73009A0652 /* EncryptionCore.swift in Sources */,
+				F4DE11321BA2635600E64ABF /* IntroViewController.swift in Sources */,
 				F4DE11301BA2635600E64ABF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,23 +328,30 @@
 		};
 		F4DE113F1BA2635600E64ABF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69534EE179585C656013944F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = HackathonBase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.slu21.HackathonBase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HackathonBase/HackathonBase-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		F4DE11401BA2635600E64ABF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1325A1087E982E335809673F /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = HackathonBase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.slu21.HackathonBase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HackathonBase/HackathonBase-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -285,6 +374,7 @@
 				F4DE11401BA2635600E64ABF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
