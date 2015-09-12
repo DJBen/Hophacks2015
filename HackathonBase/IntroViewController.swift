@@ -10,16 +10,19 @@ import UIKit
 import FBSDKLoginKit
 import Cartography
 
-class IntroViewController: UIViewController {
+class IntroViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     lazy var loginButton: FBSDKLoginButton = {
         let button = FBSDKLoginButton()
+        button.delegate = self
         return button
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        EncryptionCore.sharedInstance.fetchCurrentFacebookUser()
+        
         let testCoverImage = UIImage(named: "test_cover")!
         let testHiddenImage = UIImage(named: "test_hidden")!
         EncryptionCore.sharedInstance.archiveBlurredImage(testCoverImage, withOriginalImage: testHiddenImage, metadata: metadataFromItems(["Bobo", "Vincent", "Yunwei"])) {
@@ -51,6 +54,23 @@ class IntroViewController: UIViewController {
             b.height >= 44
         }
     }
+    
+    // MARK: - Login button delegate
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        guard error == nil else {
+            print(error)
+            return
+        }
+        EncryptionCore.sharedInstance.fetchCurrentFacebookUser()
+    }
 
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        
+    }
+    
+    func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
+        return true
+    }
+    
 }
 

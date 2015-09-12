@@ -9,12 +9,17 @@
 import UIKit
 import zipzap
 import ZipArchive
+import FBSDKCoreKit
 
 typealias ArchiveCompletionBlock = (path: String?, error: NSError?) -> Void
 typealias UnarchiveCompletionBlock = (blurredImagePath: String?, originalImagePath: String?, metadataPath: String?, error: NSError?) -> Void
 
 class EncryptionCore: NSObject {
     static let sharedInstance = EncryptionCore()
+    
+    var facebookUserID: String?
+    var facebookUserName: String?
+    var facebookPictureURL: NSURL?
     
     func archiveBlurredImage(blurredImage: UIImage, withOriginalImage originalImage: UIImage, metadata: NSData?, completionBlock: ArchiveCompletionBlock) {
         let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
@@ -83,6 +88,24 @@ class EncryptionCore: NSObject {
                 dispatch_async(dispatch_get_main_queue()) {
                     completionBlock(blurredImagePath: nil, originalImagePath: nil, metadataPath: nil, error: NSError(domain: "Hophacks2015", code: 0, userInfo: nil))
                 }
+            }
+        }
+    }
+    
+    func fetchCurrentFacebookUser() {
+        guard FBSDKAccessToken.currentAccessToken() != nil else {
+            return
+        }
+        FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id,name,picture"]).startWithCompletionHandler { (connection, result, error) -> Void in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            // { id: "xxx", name = "Person" }
+            self.facebookUserID = result["id"] as? String
+            self.facebookUserName = result["name"] as? String
+            if let picture = result["picture"] as? [String: AnyObject], data = picture["data"] as? [String: AnyObject], urlString = data["url"] as? String {
+                self.facebookPictureURL = NSURL(string: urlString)
             }
         }
     }
