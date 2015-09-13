@@ -10,16 +10,13 @@ import UIKit
 import zipzap
 import ZipArchive
 import FBSDKCoreKit
+import CoreImage
 
 typealias ArchiveCompletionBlock = (path: String?, error: NSError?) -> Void
 typealias UnarchiveCompletionBlock = (blurredImagePath: String?, originalImagePath: String?, metadataPath: String?, error: NSError?) -> Void
 
 class EncryptionCore: NSObject {
     static let sharedInstance = EncryptionCore()
-    
-    var facebookUserID: String?
-    var facebookUserName: String?
-    var facebookPictureURL: NSURL?
     
     func archiveBlurredImage(blurredImage: UIImage, withOriginalImage originalImage: UIImage, metadata: NSData?, completionBlock: ArchiveCompletionBlock) {
         let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
@@ -31,11 +28,11 @@ class EncryptionCore: NSObject {
             let resultImageName = (resultUDID as NSString).stringByAppendingPathExtension("jpg")!
             let resultImagePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(resultImageName)
             let data = NSMutableData()
-            data.appendData(UIImageJPEGRepresentation(blurredImage, 1.0)!)
+            data.appendData(UIImageJPEGRepresentation(blurredImage, 0.7)!)
             do {
                 let archive = try ZZArchive(URL: url, options: [ZZOpenOptionsCreateIfMissingKey: true])
                 let imageItem = ZZArchiveEntry(fileName: "\(resultUDID)-original.jpg", compress: false, dataBlock: { (error) -> NSData! in
-                    return UIImageJPEGRepresentation(originalImage, 1.0)
+                    return UIImageJPEGRepresentation(originalImage, 0.7)
                 })
                 try archive.updateEntries(
                     metadata != nil ?
@@ -91,24 +88,6 @@ class EncryptionCore: NSObject {
             }
         }
     }
-    
-    func fetchCurrentFacebookUser() {
-        guard FBSDKAccessToken.currentAccessToken() != nil else {
-            return
-        }
-        FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id,name,picture"]).startWithCompletionHandler { (connection, result, error) -> Void in
-            guard error == nil else {
-                print(error)
-                return
-            }
-            // { id: "xxx", name = "Person" }
-            self.facebookUserID = result["id"] as? String
-            self.facebookUserName = result["name"] as? String
-            if let picture = result["picture"] as? [String: AnyObject], data = picture["data"] as? [String: AnyObject], urlString = data["url"] as? String {
-                self.facebookPictureURL = NSURL(string: urlString)
-            }
-        }
-    }
 }
 
 func metadataFromItems(items: [String]) -> NSData {
@@ -121,5 +100,26 @@ func itemsFromMetadata(path: String) -> [String] {
         return lines.componentsSeparatedByString("\n")
     } catch {
         return []
+    }
+}
+
+typealias AvoidDupCIImage = CIImage
+
+extension UIImage {
+    var blurredImage: UIImage {
+        let blurFilter = CIFilter(name: "CIGaussianBlur")!
+        blurFilter.setDefaults()
+        let inputImage = AvoidDupCIImage(CGImage: self.CGImage!)
+        blurFilter.setValue(inputImage, forKey: kCIInputImageKey)
+        blurFilter.setValue(50, forKey: kCIInputRadiusKey)
+        let outputImage = blurFilter.outputImage!
+        let context = CIContext(options: nil)
+        let cgImage = context.createCGImage(outputImage, fromRect: inputImage.extent)
+        return UIImage(CGImage: cgImage)
+    }
+    
+    var rawData: UnsafePointer<UInt8> {
+        let pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.CGImage))
+        return CFDataGetBytePtr(pixelData)
     }
 }

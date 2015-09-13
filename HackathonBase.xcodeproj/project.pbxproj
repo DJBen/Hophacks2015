@@ -9,6 +9,19 @@
 /* Begin PBXBuildFile section */
 		9902F1C0ECD9AC2FA28DBB89 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A49C6183159FDB827D8742D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F419BDDB1BA27B73009A0652 /* EncryptionCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDDA1BA27B73009A0652 /* EncryptionCore.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDDD1BA4B322009A0652 /* BlurImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDDC1BA4B322009A0652 /* BlurImageViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDE21BA4F1AF009A0652 /* UIImage+OrientationFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDE11BA4F1AF009A0652 /* UIImage+OrientationFix.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDE51BA50B1D009A0652 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F419BDE41BA50B1D009A0652 /* CloudKit.framework */; };
+		F419BDE71BA50B49009A0652 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDE61BA50B49009A0652 /* ShareManager.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDF11BA532B2009A0652 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDE91BA532B2009A0652 /* GalleryViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDF21BA532B2009A0652 /* GalleryViewControllerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDEA1BA532B2009A0652 /* GalleryViewControllerTransitioning.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDF31BA532B2009A0652 /* GalleryBrowsePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDEB1BA532B2009A0652 /* GalleryBrowsePhotoViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDF41BA532B2009A0652 /* GalleryBrowserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDEC1BA532B2009A0652 /* GalleryBrowserPageView.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDF51BA532B2009A0652 /* GalleryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDED1BA532B2009A0652 /* GalleryImageCell.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDF61BA532B2009A0652 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDEE1BA532B2009A0652 /* ImageCacheManager.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDF71BA532B2009A0652 /* FNImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDEF1BA532B2009A0652 /* FNImage.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDF81BA532B2009A0652 /* MathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDF01BA532B2009A0652 /* MathAdditions.swift */; settings = {ASSET_TAGS = (); }; };
+		F419BDFA1BA535A6009A0652 /* LocalPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDF91BA535A5009A0652 /* LocalPhotosViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F4DE11301BA2635600E64ABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE112F1BA2635600E64ABF /* AppDelegate.swift */; };
 		F4DE11321BA2635600E64ABF /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE11311BA2635600E64ABF /* IntroViewController.swift */; };
 		F4DE11351BA2635600E64ABF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE11331BA2635600E64ABF /* Main.storyboard */; };
@@ -21,6 +34,20 @@
 		1A49C6183159FDB827D8742D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69534EE179585C656013944F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F419BDDA1BA27B73009A0652 /* EncryptionCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptionCore.swift; sourceTree = "<group>"; };
+		F419BDDC1BA4B322009A0652 /* BlurImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurImageViewController.swift; sourceTree = "<group>"; };
+		F419BDE11BA4F1AF009A0652 /* UIImage+OrientationFix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+OrientationFix.swift"; sourceTree = "<group>"; };
+		F419BDE31BA50B13009A0652 /* HackathonBase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HackathonBase.entitlements; sourceTree = "<group>"; };
+		F419BDE41BA50B1D009A0652 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		F419BDE61BA50B49009A0652 /* ShareManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
+		F419BDE91BA532B2009A0652 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		F419BDEA1BA532B2009A0652 /* GalleryViewControllerTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewControllerTransitioning.swift; sourceTree = "<group>"; };
+		F419BDEB1BA532B2009A0652 /* GalleryBrowsePhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryBrowsePhotoViewController.swift; sourceTree = "<group>"; };
+		F419BDEC1BA532B2009A0652 /* GalleryBrowserPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryBrowserPageView.swift; sourceTree = "<group>"; };
+		F419BDED1BA532B2009A0652 /* GalleryImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryImageCell.swift; sourceTree = "<group>"; };
+		F419BDEE1BA532B2009A0652 /* ImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		F419BDEF1BA532B2009A0652 /* FNImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FNImage.swift; sourceTree = "<group>"; };
+		F419BDF01BA532B2009A0652 /* MathAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathAdditions.swift; sourceTree = "<group>"; };
+		F419BDF91BA535A5009A0652 /* LocalPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalPhotosViewController.swift; sourceTree = "<group>"; };
 		F4DE112C1BA2635600E64ABF /* HackathonBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackathonBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE112F1BA2635600E64ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4DE11311BA2635600E64ABF /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9902F1C0ECD9AC2FA28DBB89 /* Pods.framework in Frameworks */,
+				F419BDE51BA50B1D009A0652 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +74,7 @@
 		0CFD3A7354AE40F4BF378F27 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F419BDE41BA50B1D009A0652 /* CloudKit.framework */,
 				1A49C6183159FDB827D8742D /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -58,6 +87,21 @@
 				1325A1087E982E335809673F /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F419BDE81BA53286009A0652 /* AsyncPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				F419BDE91BA532B2009A0652 /* GalleryViewController.swift */,
+				F419BDEA1BA532B2009A0652 /* GalleryViewControllerTransitioning.swift */,
+				F419BDEB1BA532B2009A0652 /* GalleryBrowsePhotoViewController.swift */,
+				F419BDEC1BA532B2009A0652 /* GalleryBrowserPageView.swift */,
+				F419BDED1BA532B2009A0652 /* GalleryImageCell.swift */,
+				F419BDEE1BA532B2009A0652 /* ImageCacheManager.swift */,
+				F419BDEF1BA532B2009A0652 /* FNImage.swift */,
+				F419BDF01BA532B2009A0652 /* MathAdditions.swift */,
+			);
+			path = AsyncPhotoBrowser;
 			sourceTree = "<group>";
 		};
 		F4DE11231BA2635600E64ABF = {
@@ -81,9 +125,15 @@
 		F4DE112E1BA2635600E64ABF /* HackathonBase */ = {
 			isa = PBXGroup;
 			children = (
+				F419BDE31BA50B13009A0652 /* HackathonBase.entitlements */,
 				F4DE112F1BA2635600E64ABF /* AppDelegate.swift */,
 				F4DE11311BA2635600E64ABF /* IntroViewController.swift */,
+				F419BDDC1BA4B322009A0652 /* BlurImageViewController.swift */,
+				F419BDF91BA535A5009A0652 /* LocalPhotosViewController.swift */,
 				F419BDDA1BA27B73009A0652 /* EncryptionCore.swift */,
+				F419BDE61BA50B49009A0652 /* ShareManager.swift */,
+				F419BDE11BA4F1AF009A0652 /* UIImage+OrientationFix.swift */,
+				F419BDE81BA53286009A0652 /* AsyncPhotoBrowser */,
 				F4DE11331BA2635600E64ABF /* Main.storyboard */,
 				F4DE11361BA2635600E64ABF /* Assets.xcassets */,
 				F4DE11381BA2635600E64ABF /* LaunchScreen.storyboard */,
@@ -128,6 +178,12 @@
 				TargetAttributes = {
 					F4DE112B1BA2635600E64ABF = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 52RD2GH5DP;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -215,9 +271,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F419BDE21BA4F1AF009A0652 /* UIImage+OrientationFix.swift in Sources */,
+				F419BDF71BA532B2009A0652 /* FNImage.swift in Sources */,
+				F419BDF31BA532B2009A0652 /* GalleryBrowsePhotoViewController.swift in Sources */,
+				F419BDF11BA532B2009A0652 /* GalleryViewController.swift in Sources */,
+				F419BDF41BA532B2009A0652 /* GalleryBrowserPageView.swift in Sources */,
 				F419BDDB1BA27B73009A0652 /* EncryptionCore.swift in Sources */,
+				F419BDF21BA532B2009A0652 /* GalleryViewControllerTransitioning.swift in Sources */,
 				F4DE11321BA2635600E64ABF /* IntroViewController.swift in Sources */,
+				F419BDE71BA50B49009A0652 /* ShareManager.swift in Sources */,
+				F419BDF81BA532B2009A0652 /* MathAdditions.swift in Sources */,
+				F419BDFA1BA535A6009A0652 /* LocalPhotosViewController.swift in Sources */,
+				F419BDF61BA532B2009A0652 /* ImageCacheManager.swift in Sources */,
+				F419BDF51BA532B2009A0652 /* GalleryImageCell.swift in Sources */,
 				F4DE11301BA2635600E64ABF /* AppDelegate.swift in Sources */,
+				F419BDDD1BA4B322009A0652 /* BlurImageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,10 +400,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HackathonBase/HackathonBase.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HackathonBase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.slu21.HackathonBase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HackathonBase/HackathonBase-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -347,10 +419,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HackathonBase/HackathonBase.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HackathonBase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.slu21.HackathonBase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HackathonBase/HackathonBase-Bridging-Header.h";
 			};
 			name = Release;

@@ -10,7 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import Cartography
 
-class IntroViewController: UIViewController, FBSDKLoginButtonDelegate {
+class IntroViewController: UIViewController, FBSDKLoginButtonDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     lazy var loginButton: FBSDKLoginButton = {
         let button = FBSDKLoginButton()
@@ -18,26 +18,44 @@ class IntroViewController: UIViewController, FBSDKLoginButtonDelegate {
         return button
     }()
 
+    lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        return picker
+    }()
+    
+    @IBOutlet var storedPhotosButton: UIButton!
+    
+    @IBAction func displayStoredPhotos(sender: UIButton) {
+        performSegueWithIdentifier("StoredPhotos", sender: self)
+    }
+    
+    var image: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        EncryptionCore.sharedInstance.fetchCurrentFacebookUser()
         
-        let testCoverImage = UIImage(named: "test_cover")!
-        let testHiddenImage = UIImage(named: "test_hidden")!
-        EncryptionCore.sharedInstance.archiveBlurredImage(testCoverImage, withOriginalImage: testHiddenImage, metadata: metadataFromItems(["Bobo", "Vincent", "Yunwei"])) {
-            path, error in
-            print("Saving to \(path)")
-            EncryptionCore.sharedInstance.unarchiveImageBundleWithPath(path!, completionBlock: { (blurredImagePath, originalImagePath, metadataPath, error) -> Void in
-                do {
-                    try NSFileManager.defaultManager().removeItemAtPath(blurredImagePath!)
-                    try NSFileManager.defaultManager().removeItemAtPath(originalImagePath!)
-                    try NSFileManager.defaultManager().removeItemAtPath(metadataPath!)
-                } catch {
-                    
-                }
-            })
+        ShareManager.sharedInstance.fetchCurrentFacebookUser() { error in
+            self.pickImage()
         }
+    }
+    
+    @IBAction func callPickImage(sender: UITapGestureRecognizer) {
+        guard FBSDKAccessToken.currentAccessToken() != nil else {
+            return
+        }
+        self.pickImage()
+    }
+    
+    @IBAction func unwindToIntroScreen(segue: UIStoryboardSegue) {
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setToolbarHidden(true, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,12 +65,56 @@ class IntroViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     private func configureView() {
         view.addSubview(loginButton)
-        constrain(loginButton) { b in
+        constrain(loginButton, storedPhotosButton) { b, s in
             b.centerX == b.superview!.centerX
-            b.centerY == b.superview!.centerY + 150
+            b.bottom == s.top - 10
             b.width >= 200
             b.height >= 44
         }
+    }
+    
+    private func pickImage() {
+        let optionMenu = UIAlertController(title: nil, message: "Where would you like the image from?", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let photoLibraryOption = UIAlertAction(title: "Photo Library", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
+            self.imagePicker.allowsEditing = false
+            self.imagePicker.sourceType = .PhotoLibrary
+            self.imagePicker.modalPresentationStyle = .Popover
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+        })
+        let cameraOption = UIAlertAction(title: "Take a photo", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
+            self.imagePicker.allowsEditing = false
+            self.imagePicker.sourceType = .Camera
+            self.imagePicker.modalPresentationStyle = .Popover
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            
+        })
+        let cancelOption = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        
+        //Adding the actions to the action sheet. Camera will only show up as an option if the camera is available in the first place.
+        optionMenu.addAction(photoLibraryOption)
+        optionMenu.addAction(cancelOption)
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) == true {
+            optionMenu.addAction(cameraOption)
+        } else {
+            print("Camera not available.")
+        }
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        self.image = image
+        dismissViewControllerAnimated(true) { () -> Void in
+            self.performSegueWithIdentifier("BlurSegue", sender: self)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - Login button delegate
@@ -61,7 +123,9 @@ class IntroViewController: UIViewController, FBSDKLoginButtonDelegate {
             print(error)
             return
         }
-        EncryptionCore.sharedInstance.fetchCurrentFacebookUser()
+        ShareManager.sharedInstance.fetchCurrentFacebookUser() { error in
+            self.pickImage()
+        }
     }
 
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
@@ -72,5 +136,12 @@ class IntroViewController: UIViewController, FBSDKLoginButtonDelegate {
         return true
     }
     
+    // MARK: - Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "BlurSegue" {
+            let vc = segue.destinationViewController as! BlurImageViewController
+            vc.originalImage = self.image!
+        }
+    }
 }
 
