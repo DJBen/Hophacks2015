@@ -8,6 +8,9 @@
 
 import UIKit
 import Cartography
+// TODO: Remove
+import LocalAuthentication
+import JGProgressHUD
 
 @objc protocol GalleryBrowserDataSource {
     func imageEntityForPage(page: Int, inGalleyBrowser galleryBrowser: GalleryBrowsePhotoViewController) -> FNImage?
@@ -110,6 +113,90 @@ class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDelegate {
             v.bottom == v.superview!.bottom
         }
         
+        // TODO: Remove at release
+        navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    // TODO: Remove
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setToolbarHidden(false, animated: true)
+        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: "")
+        space.width = 30
+        toolbarItems = [
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: ""),
+            UIBarButtonItem(image: UIImage(named: "icon-unlock"), style: UIBarButtonItemStyle.Plain, target: self, action: "unlockImage:"),
+            space,
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "shareImage:"),
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: "")
+        ]
+    }
+    
+    // TODO: Remove at release
+    func unlockImage(sender: UIBarButtonItem) {
+        guard currentImageEntity?.sourceImage != nil else {
+            return
+        }
+        let path = originalPhotoPathForBlurredPhotoAtPath(currentImageEntity!.URL.path!)
+        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+            goToSecretPhotoWithPath(path: path)
+        } else {
+            print("!! \(NSFileManager.defaultManager().fileExistsAtPath(currentImageEntity!.URL.path!))")
+            EncryptionCore.sharedInstance.unarchiveImageBundleWithPath(currentImageEntity!.URL.path!) { (blurredImagePath, originalImagePath, metadataPath, error) -> Void in
+                guard error == nil else {
+                    print(error)
+                    return
+                }
+                do {
+                    let contents = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(NSTemporaryDirectory() + "/original")
+                    print("C: \(contents)")
+                } catch {
+                    
+                }
+                print("\(NSFileManager.defaultManager().fileExistsAtPath(path))")
+                self.goToSecretPhotoWithPath(path: originalImagePath!)
+            }
+        }
+    }
+    
+    func shareImage(sender: UIBarButtonItem) {
+        guard currentImageEntity?.sourceImage != nil else {
+            return
+        }
+        let path = currentImageEntity!.URL.path!
+        let appDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        let storyboard = appDelegate.window!.rootViewController!.storyboard!
+        let vc = storyboard.instantiateViewControllerWithIdentifier("FriendListVC") as! FriendListTableViewController
+        vc.imagePath = path
+        navigationController!.pushViewController(vc, animated: true)
+    }
+    
+    // TODO: Remove at release
+    private func goToSecretPhotoWithPath(path originalImagePath: String) {
+        let context = LAContext()
+        var error: NSError?
+        let processAuthentication: (Bool, NSError?) -> Void = {
+            success, error in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            dispatch_async(dispatch_get_main_queue()) {
+                let image = UIImage(contentsOfFile: originalImagePath)!
+                let vc = ImageBrowserViewController()
+                vc.image = image
+                vc.navigationItem.title = "Revealed Image"
+                self.navigationController!.pushViewController(vc, animated: false)
+            }
+        }
+        if context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "In order to view this photo, we need to know if you are the owner.", reply: processAuthentication)
+        } else if context.canEvaluatePolicy(.DeviceOwnerAuthentication, error: &error) {
+            context.evaluatePolicy(.DeviceOwnerAuthentication, localizedReason: "In order to view this photo, we need to know if you are the owner.", reply: processAuthentication)
+        } else {
+            print("Don't have fingerprint")
+        }
     }
     
     func doneButtonTapped(sender: UIBarButtonItem) {
@@ -123,7 +210,7 @@ class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDelegate {
             return
         }
         
-        if let pageView = pageViews[page] {
+        if pageViews[page] != nil {
             // Do nothing. The view is already loaded.
         } else {
             var frame = scrollView.bounds

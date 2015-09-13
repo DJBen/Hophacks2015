@@ -18,6 +18,7 @@ class BlurImageViewController: UIViewController {
     var replacedTiles = Set<NSIndexPath>()
     
     var originalImage: UIImage!
+    var originalOrientation: UIImageOrientation!
     var blurredImage: UIImage!
     var previousPoint: CGPoint?
 
@@ -31,8 +32,18 @@ class BlurImageViewController: UIViewController {
         hud.textLabel.text = "Pre-processing..."
         hud.showInView(view)
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) {
-            self.blurredImage = self.originalImage.blurredImage.imageByFixingOrientationFromSourceImage(self.originalImage.imageOrientation)
+            let halfSize = CGSizeMake(self.originalImage.size.width / 2, self.originalImage.size.height / 2)
+            let hasAlpha = false
+            let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+            UIGraphicsBeginImageContextWithOptions(halfSize, !hasAlpha, scale)
+            self.originalImage.drawInRect(CGRect(origin: CGPointZero, size: halfSize))
+            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            self.originalImage = scaledImage
+            self.blurredImage = scaledImage.blurredImage.imageByFixingOrientationFromSourceImage(self.originalOrientation)
             dispatch_async(dispatch_get_main_queue()) {
+                self.imageView.image = self.originalImage
                 hud.dismiss()
             }
         }
@@ -115,7 +126,7 @@ class BlurImageViewController: UIViewController {
             return
         }
         let gridOnSource = blurredImage.sliceRectWithAbsolutePoint(absolutePoint)
-        let count = CGSizeMake(blurredImage.size.width / tileSize.width, blurredImage.size.height / tileSize.height)
+        let count = CGSizeMake(originalImage.size.width / tileSize.width, originalImage.size.height / tileSize.height)
         let gridOnDisplay = sliceRectWithAbsolutePoint(absolutePoint, size: imageView.frame.size, count: count)
         let tSize = CGSizeMake(imageView.frame.size.width / count.width, imageView.frame.size.height / count.height)
         let screenIndexPath = NSIndexPath(indexes: [Int(gridOnDisplay.origin.x / tSize.width), Int(gridOnDisplay.origin.y / tSize.height)], length: 2)
@@ -144,7 +155,7 @@ class BlurImageViewController: UIViewController {
     
     func exportedImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(originalImage.size, true, UIScreen.mainScreen().scale)
-        let count = CGSizeMake(blurredImage.size.width / tileSize.width, blurredImage.size.height / tileSize.height)
+        let count = CGSizeMake(originalImage.size.width / tileSize.width, originalImage.size.height / tileSize.height)
         originalImage.drawAtPoint(CGPointZero)
         for x in 0..<Int(count.width) {
             for y in 0..<Int(count.height) {

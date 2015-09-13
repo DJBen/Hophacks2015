@@ -9,6 +9,8 @@
 import UIKit
 import FBSDKLoginKit
 import Cartography
+import JGProgressHUD
+import CloudKit
 
 class IntroViewController: UIViewController, FBSDKLoginButtonDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -26,7 +28,9 @@ class IntroViewController: UIViewController, FBSDKLoginButtonDelegate, UIImagePi
     
     @IBOutlet var storedPhotosButton: UIButton!
     
-    @IBAction func displayStoredPhotos(sender: UIButton) {
+    @IBOutlet var backgroundImageView: UIImageView!
+    
+    @IBAction func displayStoredPhotos(sender: UIButton!) {
         performSegueWithIdentifier("StoredPhotos", sender: self)
     }
     
@@ -37,7 +41,56 @@ class IntroViewController: UIViewController, FBSDKLoginButtonDelegate, UIImagePi
         configureView()
         
         ShareManager.sharedInstance.fetchCurrentFacebookUser() { error in
-            self.pickImage()
+            if ShareManager.sharedInstance.shouldHandlePushNotification {
+                self.fetchNewPhoto()
+            } else {
+                self.pickImage()
+            }
+            NSNotificationCenter.defaultCenter().addObserverForName(RemoteNotificationReceivedNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (_) -> Void in
+                self.fetchNewPhoto()
+            })
+        }
+    }
+    
+    private func fetchNewPhoto() {
+        let hud = JGProgressHUD(style: JGProgressHUDStyle.Dark)
+        hud.textLabel.text = "Fetching your photo..."
+        hud.showInView(self.view)
+        ShareManager.sharedInstance.fetchImagesSharedWithMe { (records, error) -> Void in
+            hud.dismiss()
+            print(records)
+            ShareManager.sharedInstance.shouldHandlePushNotification = false
+            if let record = records?[0] {
+                let asset = record["data"] as! CKAsset
+                let uuid = record["UUID"] as! String
+                do {
+                    let tempName = uuid + ".jpg"
+                    try NSFileManager.defaultManager().moveItemAtURL(asset.fileURL, toURL: NSURL(fileURLWithPath: (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(tempName)))
+                    self.displayStoredPhotos(nil)
+                } catch {
+                    print("Intro: \(error)")
+                }
+            }
+        }
+    }
+    
+    @IBAction func cleanLibrary(sender: UILongPressGestureRecognizer) {
+        guard sender.state == UIGestureRecognizerState.Recognized else {
+            return
+        }
+        print("Clean library")
+        do {
+            let contents = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(NSTemporaryDirectory())
+            contents.forEach({ (content) -> () in
+                do {
+                    let path = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(content)
+                    try NSFileManager.defaultManager().removeItemAtPath(path)
+                } catch {
+                    
+                }
+            })
+        } catch {
+            print(error)
         }
     }
     
@@ -141,6 +194,7 @@ class IntroViewController: UIViewController, FBSDKLoginButtonDelegate, UIImagePi
         if segue.identifier == "BlurSegue" {
             let vc = segue.destinationViewController as! BlurImageViewController
             vc.originalImage = self.image!
+            vc.originalOrientation = self.image!.imageOrientation
         }
     }
 }

@@ -9,6 +9,13 @@
 import UIKit
 import CloudKit
 
+struct FriendInfo {
+    let userID: String
+    let name: String
+    let profileURLString: String
+    let deviceUDID: String
+}
+
 class ShareManager: NSObject {
     static let sharedInstance = ShareManager()
     
@@ -78,16 +85,20 @@ class ShareManager: NSObject {
     
     func uploadBundledImage(imagePath: NSString, shareWithUser otherUserID: String, completion: (error: NSError?) -> Void) {
         let asset = CKAsset(fileURL: NSURL(fileURLWithPath: imagePath as String))
-        let record = CKRecord(recordType: "Image", recordID: CKRecordID(recordName: facebookUserID!))
+        let record = CKRecord(recordType: "Image")
         record["creator"] = facebookUserID!
         record["data"] = asset
         record["sharedUser"] = otherUserID
+        record["UUID"] = (imagePath.lastPathComponent as NSString).stringByDeletingPathExtension
         let mainThreadCompletion: (error: NSError?) -> Void = { error in
             dispatch_async(dispatch_get_main_queue()) {
                 completion(error: error)
             }
         }
-        publicDatabase.saveRecord(record) { (record, error) -> Void in
+        let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+        operation.savePolicy = CKRecordSavePolicy.ChangedKeys
+        operation.queuePriority = NSOperationQueuePriority.VeryHigh
+        operation.modifyRecordsCompletionBlock = { saved, _, error in
             guard error == nil else {
                 print(error)
                 mainThreadCompletion(error: error)
@@ -95,23 +106,57 @@ class ShareManager: NSObject {
             }
             mainThreadCompletion(error: nil)
         }
+        publicDatabase.addOperation(operation)
+    }
+    
+    func fetchFriendList(completion: (friends: [FriendInfo]?, error: NSError?) -> Void) {
+        let query = CKQuery(recordType: "Account", predicate: NSPredicate(value: true))
+        let mainThreadCompletion: (records: [CKRecord]?, error: NSError?) -> Void = { records, error in
+            guard error == nil else {
+                print(error)
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(friends: nil, error: error)
+                }
+                return
+            }
+            let users = records!.map({ (record) -> FriendInfo in
+                return FriendInfo(userID: record["userID"] as! String, name: record["name"] as! String, profileURLString: record["profilePicture"] as! String, deviceUDID: record["device"] as! String)
+            })
+            dispatch_async(dispatch_get_main_queue()) {
+                completion(friends: users, error: nil)
+            }
+        }
+        publicDatabase.performQuery(query, inZoneWithID: nil) { (records, error) -> Void in
+            mainThreadCompletion(records: records, error: error)
+        }
     }
     
     func fetchImagesSharedWithMe(completion: (records: [CKRecord]?, error: NSError?) -> Void) {
         let query = CKQuery(recordType: "Image", predicate: NSPredicate(format: "sharedUser == %@", facebookUserID!))
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        let operation = CKQueryOperation(query: query)
+        operation.resultsLimit = 1
+        var fRecord: CKRecord?
         let mainThreadCompletion: (records: [CKRecord]?, error: NSError?) -> Void = { records, error in
             dispatch_async(dispatch_get_main_queue()) {
                 completion(records: records, error: error)
             }
         }
-        publicDatabase.performQuery(query, inZoneWithID: nil) { (records, error) -> Void in
+        operation.recordFetchedBlock = { record in
+            fRecord = record
+        }
+        operation.queryCompletionBlock = { cursor, error in
             guard error == nil else {
                 print(error)
                 mainThreadCompletion(records: nil, error: error)
                 return
             }
-            mainThreadCompletion(records: records, error: error)
+            if fRecord == nil {
+                mainThreadCompletion(records: nil, error: error)
+            } else {
+                mainThreadCompletion(records: [fRecord!], error: error)
+            }
         }
+        publicDatabase.addOperation(operation)
     }
 }

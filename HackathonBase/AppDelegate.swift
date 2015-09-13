@@ -11,6 +11,8 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import CloudKit
 
+let RemoteNotificationReceivedNotification = "RemoteReceived"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -21,16 +23,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         if launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
             ShareManager.sharedInstance.shouldHandlePushNotification = true
+            NSNotificationCenter.defaultCenter().postNotificationName(RemoteNotificationReceivedNotification, object: self)
         }
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        resetBadgeCounter()
         return true
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
 //        let notification = CKNotification(fromRemoteNotificationDictionary: (userInfo as! [String: NSObject]))
         ShareManager.sharedInstance.shouldHandlePushNotification = true
+        NSNotificationCenter.defaultCenter().postNotificationName(RemoteNotificationReceivedNotification, object: self)
+    }
+    
+    func resetBadgeCounter() {
+        let badgeResetOperation = CKModifyBadgeOperation(badgeValue: 0)
+        badgeResetOperation.modifyBadgeCompletionBlock = { (error) -> Void in
+            if error != nil {
+                print("Error resetting badge: \(error)")
+            } else {
+                UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+            }
+        }
+        CKContainer.defaultContainer().addOperation(badgeResetOperation)
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -53,7 +70,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         FBSDKAppEvents.activateApp()
+        if UIApplication.sharedApplication().applicationIconBadgeNumber != 0 {
+            ShareManager.sharedInstance.shouldHandlePushNotification = true
+            NSNotificationCenter.defaultCenter().postNotificationName(RemoteNotificationReceivedNotification, object: self)
+        }
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        resetBadgeCounter()
     }
 
     func applicationWillTerminate(application: UIApplication) {

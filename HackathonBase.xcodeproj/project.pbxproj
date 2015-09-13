@@ -22,6 +22,10 @@
 		F419BDF71BA532B2009A0652 /* FNImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDEF1BA532B2009A0652 /* FNImage.swift */; settings = {ASSET_TAGS = (); }; };
 		F419BDF81BA532B2009A0652 /* MathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDF01BA532B2009A0652 /* MathAdditions.swift */; settings = {ASSET_TAGS = (); }; };
 		F419BDFA1BA535A6009A0652 /* LocalPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419BDF91BA535A5009A0652 /* LocalPhotosViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F4B0FA1A1BA546FB0089DC99 /* ImageBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0FA191BA546FB0089DC99 /* ImageBrowserViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F4B0FA1C1BA556C50089DC99 /* FriendListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0FA1B1BA556C50089DC99 /* FriendListTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F4B0FA1E1BA567DF0089DC99 /* FriendCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0FA1D1BA567DF0089DC99 /* FriendCellTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		F4B0FA221BA576FF0089DC99 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B0FA211BA576FF0089DC99 /* UIImage+Resize.m */; settings = {ASSET_TAGS = (); }; };
 		F4DE11301BA2635600E64ABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE112F1BA2635600E64ABF /* AppDelegate.swift */; };
 		F4DE11321BA2635600E64ABF /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE11311BA2635600E64ABF /* IntroViewController.swift */; };
 		F4DE11351BA2635600E64ABF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE11331BA2635600E64ABF /* Main.storyboard */; };
@@ -48,6 +52,11 @@
 		F419BDEF1BA532B2009A0652 /* FNImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FNImage.swift; sourceTree = "<group>"; };
 		F419BDF01BA532B2009A0652 /* MathAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathAdditions.swift; sourceTree = "<group>"; };
 		F419BDF91BA535A5009A0652 /* LocalPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalPhotosViewController.swift; sourceTree = "<group>"; };
+		F4B0FA191BA546FB0089DC99 /* ImageBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBrowserViewController.swift; sourceTree = "<group>"; };
+		F4B0FA1B1BA556C50089DC99 /* FriendListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewController.swift; sourceTree = "<group>"; };
+		F4B0FA1D1BA567DF0089DC99 /* FriendCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCellTableViewCell.swift; sourceTree = "<group>"; };
+		F4B0FA201BA576FF0089DC99 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		F4B0FA211BA576FF0089DC99 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		F4DE112C1BA2635600E64ABF /* HackathonBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackathonBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE112F1BA2635600E64ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4DE11311BA2635600E64ABF /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +142,11 @@
 				F419BDDA1BA27B73009A0652 /* EncryptionCore.swift */,
 				F419BDE61BA50B49009A0652 /* ShareManager.swift */,
 				F419BDE11BA4F1AF009A0652 /* UIImage+OrientationFix.swift */,
+				F4B0FA191BA546FB0089DC99 /* ImageBrowserViewController.swift */,
+				F4B0FA1B1BA556C50089DC99 /* FriendListTableViewController.swift */,
+				F4B0FA1D1BA567DF0089DC99 /* FriendCellTableViewCell.swift */,
+				F4B0FA201BA576FF0089DC99 /* UIImage+Resize.h */,
+				F4B0FA211BA576FF0089DC99 /* UIImage+Resize.m */,
 				F419BDE81BA53286009A0652 /* AsyncPhotoBrowser */,
 				F4DE11331BA2635600E64ABF /* Main.storyboard */,
 				F4DE11361BA2635600E64ABF /* Assets.xcassets */,
@@ -273,18 +287,22 @@
 			files = (
 				F419BDE21BA4F1AF009A0652 /* UIImage+OrientationFix.swift in Sources */,
 				F419BDF71BA532B2009A0652 /* FNImage.swift in Sources */,
+				F4B0FA1A1BA546FB0089DC99 /* ImageBrowserViewController.swift in Sources */,
 				F419BDF31BA532B2009A0652 /* GalleryBrowsePhotoViewController.swift in Sources */,
 				F419BDF11BA532B2009A0652 /* GalleryViewController.swift in Sources */,
+				F4B0FA221BA576FF0089DC99 /* UIImage+Resize.m in Sources */,
 				F419BDF41BA532B2009A0652 /* GalleryBrowserPageView.swift in Sources */,
 				F419BDDB1BA27B73009A0652 /* EncryptionCore.swift in Sources */,
 				F419BDF21BA532B2009A0652 /* GalleryViewControllerTransitioning.swift in Sources */,
 				F4DE11321BA2635600E64ABF /* IntroViewController.swift in Sources */,
 				F419BDE71BA50B49009A0652 /* ShareManager.swift in Sources */,
 				F419BDF81BA532B2009A0652 /* MathAdditions.swift in Sources */,
+				F4B0FA1E1BA567DF0089DC99 /* FriendCellTableViewCell.swift in Sources */,
 				F419BDFA1BA535A6009A0652 /* LocalPhotosViewController.swift in Sources */,
 				F419BDF61BA532B2009A0652 /* ImageCacheManager.swift in Sources */,
 				F419BDF51BA532B2009A0652 /* GalleryImageCell.swift in Sources */,
 				F4DE11301BA2635600E64ABF /* AppDelegate.swift in Sources */,
+				F4B0FA1C1BA556C50089DC99 /* FriendListTableViewController.swift in Sources */,
 				F419BDDD1BA4B322009A0652 /* BlurImageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

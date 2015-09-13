@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bd0-I4-wvz">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Local Photos View Controller-->
@@ -20,6 +22,74 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yKZ-le-Nhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2046" y="-1010"/>
+        </scene>
+        <!--Friend List Table View Controller-->
+        <scene sceneID="7rZ-0C-pH1">
+            <objects>
+                <tableViewController storyboardIdentifier="FriendListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ttI-iw-JdG" customClass="FriendListTableViewController" customModule="HackathonBase" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="126" sectionHeaderHeight="28" sectionFooterHeight="28" id="WHU-0g-dcb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="100" id="F7N-KV-gWt" customClass="FriendCellTableViewCell" customModule="HackathonBase" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F7N-KV-gWt" id="cL6-2C-bWM">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Uw-cl-Blz">
+                                            <rect key="frame" x="20" y="0.0" width="91.5" height="91.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="3Uw-cl-Blz" secondAttribute="height" id="4be-pL-xt3"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook friend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89i-Oa-Mh5">
+                                            <rect key="frame" x="127" y="61" width="124" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Very Long Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uYa-2c-0zB">
+                                            <rect key="frame" x="127" y="8" width="207.5" height="36"/>
+                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="uYa-2c-0zB" firstAttribute="leading" secondItem="3Uw-cl-Blz" secondAttribute="trailing" constant="16" id="30b-w5-lLb"/>
+                                        <constraint firstItem="3Uw-cl-Blz" firstAttribute="top" secondItem="cL6-2C-bWM" secondAttribute="top" id="J8W-69-h8O"/>
+                                        <constraint firstItem="uYa-2c-0zB" firstAttribute="top" secondItem="cL6-2C-bWM" secondAttribute="topMargin" id="Lsr-DH-Ssq"/>
+                                        <constraint firstAttribute="bottom" secondItem="3Uw-cl-Blz" secondAttribute="bottom" constant="8" id="XjY-Wn-zU3"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="89i-Oa-Mh5" secondAttribute="bottom" constant="10" id="de7-an-Hba"/>
+                                        <constraint firstItem="3Uw-cl-Blz" firstAttribute="leading" secondItem="cL6-2C-bWM" secondAttribute="leading" constant="20" id="eXK-0A-uXO"/>
+                                        <constraint firstAttribute="bottom" secondItem="3Uw-cl-Blz" secondAttribute="bottom" id="gM4-lj-HzP"/>
+                                        <constraint firstItem="89i-Oa-Mh5" firstAttribute="leading" secondItem="3Uw-cl-Blz" secondAttribute="trailing" constant="16" id="p9K-sK-kiH"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="gM4-lj-HzP"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="profileImageView" destination="3Uw-cl-Blz" id="SvJ-us-Voj"/>
+                                    <outlet property="statusLabel" destination="89i-Oa-Mh5" id="6kC-Ej-bmG"/>
+                                    <outlet property="titleLabel" destination="uYa-2c-0zB" id="CA5-XD-Yq8"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ttI-iw-JdG" id="2OO-AV-2IV"/>
+                            <outlet property="delegate" destination="ttI-iw-JdG" id="tfz-as-WUT"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CCP-RD-2Ad" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="1271" y="-312"/>
         </scene>
         <!--Intro View Controller-->
@@ -34,33 +104,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HopHacks 15'" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbO-Ns-REQ">
-                                <rect key="frame" x="153" y="119" width="293.5" height="62.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="52"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screen" translatesAutoresizingMaskIntoConstraints="NO" id="Hrr-eI-EfC">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZH-a8-um1">
-                                <rect key="frame" x="251" y="465" width="98" height="30"/>
-                                <state key="normal" title="Stored photos"/>
+                                <rect key="frame" x="248.5" y="464" width="103" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Stored photos">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="displayStoredPhotos:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iv5-O4-zHu"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wipe Out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbO-Ns-REQ">
+                                <rect key="frame" x="200" y="119" width="200.5" height="62.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="52"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FZH-a8-um1" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="180" id="3D8-4J-wmq"/>
+                            <constraint firstItem="Hrr-eI-EfC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="7MN-k7-MWb"/>
+                            <constraint firstAttribute="bottom" secondItem="Hrr-eI-EfC" secondAttribute="bottom" id="8Uf-4n-KjS"/>
                             <constraint firstItem="AbO-Ns-REQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ye1-da-y4m"/>
                             <constraint firstItem="FZH-a8-um1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="iYI-BU-qnC"/>
                             <constraint firstItem="AbO-Ns-REQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-150" id="lnj-EE-yjX"/>
+                            <constraint firstAttribute="trailing" secondItem="Hrr-eI-EfC" secondAttribute="trailing" id="y0R-DL-8A3"/>
+                            <constraint firstItem="Hrr-eI-EfC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zoH-uf-Soc"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="mhx-W2-ByJ" appends="YES" id="a1O-EP-2N9"/>
+                            <outletCollection property="gestureRecognizers" destination="gRq-gC-81Q" appends="YES" id="1vC-JL-KQg"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="n26-iB-FAg"/>
                     <connections>
+                        <outlet property="backgroundImageView" destination="Hrr-eI-EfC" id="MUJ-Bp-vl2"/>
                         <outlet property="storedPhotosButton" destination="FZH-a8-um1" id="b5f-WE-1X1"/>
                         <segue destination="O7R-Ff-Iug" kind="show" identifier="BlurSegue" id="7Fy-VM-r1o"/>
                         <segue destination="uiX-G3-Gro" kind="show" identifier="ReadNotification" id="eRq-Q8-ahG"/>
@@ -73,6 +155,11 @@
                         <action selector="callPickImage:" destination="BYZ-38-t0r" id="lE4-N1-JD4"/>
                     </connections>
                 </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="gRq-gC-81Q">
+                    <connections>
+                        <action selector="cleanLibrary:" destination="BYZ-38-t0r" id="QIo-06-klO"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1271" y="399"/>
         </scene>
@@ -193,4 +280,7 @@
             <point key="canvasLocation" x="460" y="399"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Screen" width="414" height="736"/>
+    </resources>
 </document>

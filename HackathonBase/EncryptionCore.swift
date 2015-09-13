@@ -28,11 +28,11 @@ class EncryptionCore: NSObject {
             let resultImageName = (resultUDID as NSString).stringByAppendingPathExtension("jpg")!
             let resultImagePath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(resultImageName)
             let data = NSMutableData()
-            data.appendData(UIImageJPEGRepresentation(blurredImage, 0.7)!)
+            data.appendData(UIImageJPEGRepresentation(blurredImage, 0.5)!)
             do {
                 let archive = try ZZArchive(URL: url, options: [ZZOpenOptionsCreateIfMissingKey: true])
                 let imageItem = ZZArchiveEntry(fileName: "\(resultUDID)-original.jpg", compress: false, dataBlock: { (error) -> NSData! in
-                    return UIImageJPEGRepresentation(originalImage, 0.7)
+                    return UIImageJPEGRepresentation(originalImage, 0.5)
                 })
                 try archive.updateEntries(
                     metadata != nil ?
@@ -66,7 +66,8 @@ class EncryptionCore: NSObject {
         dispatch_async(queue) {
             let archive = ZipArchive()
             if archive.UnzipOpenFile(path) {
-                let parentPath = (path as NSString).stringByDeletingLastPathComponent
+                let parentPath = ((path as NSString).stringByDeletingLastPathComponent as NSString).stringByAppendingPathComponent("original")
+                let fileName = ((path as NSString).lastPathComponent as NSString).stringByDeletingPathExtension
                 let ret = archive.UnzipFileTo(parentPath, overWrite: true)
                 if ret == false {
                     print("Fail to unarchive!!!")
@@ -75,8 +76,8 @@ class EncryptionCore: NSObject {
                     }
                 }
                 archive.UnzipCloseFile()
-                let originalImagePath = (path as NSString).stringByDeletingPathExtension + "-original.jpg"
-                let metadataPath = (path as NSString).stringByDeletingPathExtension + "-metadata.txt"
+                let originalImagePath = (parentPath as NSString).stringByAppendingPathComponent(fileName + "-original.jpg")
+                let metadataPath = (parentPath as NSString).stringByAppendingPathComponent(fileName + "-metadata.txt")
                 let metadataExists = NSFileManager.defaultManager().fileExistsAtPath(metadataPath)
                 dispatch_async(dispatch_get_main_queue()) {
                     completionBlock(blurredImagePath: path, originalImagePath: originalImagePath, metadataPath: metadataExists ? metadataPath : nil, error: nil)
@@ -103,6 +104,12 @@ func itemsFromMetadata(path: String) -> [String] {
     }
 }
 
+func originalPhotoPathForBlurredPhotoAtPath(path: String) -> String {
+    let parentPath = ((path as NSString).stringByDeletingLastPathComponent as NSString).stringByAppendingPathComponent("original")
+    let fileName = ((path as NSString).lastPathComponent as NSString).stringByDeletingPathExtension
+    return (parentPath as NSString).stringByAppendingPathComponent(fileName + "-original.jpg")
+}
+
 typealias AvoidDupCIImage = CIImage
 
 extension UIImage {
@@ -118,8 +125,4 @@ extension UIImage {
         return UIImage(CGImage: cgImage)
     }
     
-    var rawData: UnsafePointer<UInt8> {
-        let pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.CGImage))
-        return CFDataGetBytePtr(pixelData)
-    }
 }
