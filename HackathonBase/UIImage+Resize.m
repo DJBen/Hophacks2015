@@ -2,8 +2,8 @@
 //  UIImage+Resize.m
 //  HackathonBase
 //
-//  Created by Sihao Lu on 9/13/15.
-//  Copyright © 2015 Sihao Lu. All rights reserved.
+//  Created by Sihao Lu, Vincent Yan on 9/13/15.
+//  Copyright © 2015 Sihao Lu, Vincent Yan. All rights reserved.
 //
 
 #import "UIImage+Resize.h"

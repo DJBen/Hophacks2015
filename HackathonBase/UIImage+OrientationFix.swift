@@ -1,8 +1,8 @@
 //
 //  UIImage+OrientationFix.swift
 //
-//  Created by Sihao Lu on 4/22/15.
-//  Copyright (c) 2015 DJ.Ben. All rights reserved.
+//  Created by Sihao Lu, Vincent Yan on 4/22/15.
+//  Copyright (c) 2015 Sihao Lu, Vincent Yan. All rights reserved.
 //
 
 import UIKit
